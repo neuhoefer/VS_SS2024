@@ -5,9 +5,8 @@ using UnityEngine.UI;
 public class DroneView : MonoBehaviour
 {
     [SerializeField] private Camera m_DroneCamera;
-    [SerializeField] private Transform m_Destination;
     [SerializeField] private MeshCollider m_Ground;
-    [SerializeField] private NavMeshAgent m_Agent;
+    [SerializeField] private Automation m_Automation;
 
     private RectTransform m_RectTransform = null;
     private RawImage m_RawImage = null;
@@ -45,11 +44,8 @@ public class DroneView : MonoBehaviour
                 // Raycasting „Ray vs. Ground“ (2. Parameter mit Modifizierer „out“: Ergebnis, 3. Parameter: maximale Distanz)
                 m_Ground.Raycast(ray, out RaycastHit raycastHit, 20.0f);
 
-                // Setzen der Position des Spots
-                m_Destination.position = raycastHit.point;
-
                 // Setzen der Destination des Agent
-                m_Agent.SetDestination(m_Destination.position);
+                m_Automation.SetAgentDestination(raycastHit.point);
             }
         }
     }
